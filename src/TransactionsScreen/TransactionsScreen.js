@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function TransactionsScreen() {
@@ -10,20 +11,25 @@ export default function TransactionsScreen() {
 			<Registers>Não há registros de entrada ou saída</Registers>
 
 			<Buttons>
-				<InOutButton>
-					<ion-icon name="add-circle-outline"></ion-icon>
-					Nova Entrada
-				</InOutButton>
+				<Link to="/nova-entrada">
+					<InOutButton>
+						<ion-icon name="add-circle-outline"></ion-icon>
+						Nova Entrada
+					</InOutButton>
+				</Link>
 
-				<InOutButton>
-					<ion-icon name="remove-circle-outline"></ion-icon>
-					Nova Saída
-				</InOutButton>
+				<Link to="/nova-saida">
+					<InOutButton>
+						<ion-icon name="remove-circle-outline"></ion-icon>
+						Nova Saída
+					</InOutButton>
+				</Link>
 			</Buttons>
 		</>
 	);
 }
 
+// UI
 const Title = styled.div`
 	font-size: 26px;
 	font-weight: 700;
@@ -62,6 +68,8 @@ const InOutButton = styled.div`
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
+	text-decoration: none !important;
+	text-decoration-color: none;
 
 	ion-icon {
 		font-size: 30px;
@@ -70,6 +78,8 @@ const InOutButton = styled.div`
 	&:hover {
 		filter: brightness(130%);
 		cursor: pointer;
+		text-decoration: none !important;
+		text-decoration-color: none;
 	}
 `;
 

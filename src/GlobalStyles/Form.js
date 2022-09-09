@@ -2,7 +2,7 @@ import styled from "styled-components";
 const Form = styled.form`
 	input,
 	button {
-		width: 80%;
+		width: 90%;
 		margin: 5px auto;
 		border-radius: 5px;
 	}
