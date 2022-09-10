@@ -1,11 +1,16 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import UserNameContext from "../contexts/UserNameContext";
+import UserTokenContext from "../contexts/UserTokenContext";
 
 export default function TransactionsScreen() {
+	const { userName } = useContext(UserNameContext);
+	console.log(userName);
 	return (
 		<>
-			<Title>
-				<h2>Olá, Fulano</h2>
+			<Title userName={userName}>
+				{userName.length > 1 ? <h2>Olá, {userName}</h2> : <h2>Olá, pessoa</h2>}
 			</Title>
 
 			<Registers>Não há registros de entrada ou saída</Registers>

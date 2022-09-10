@@ -6,10 +6,12 @@ import Form from "../GlobalStyles/Form";
 import EndFormButton from "../GlobalStyles/EndFormButton";
 import { Link, useNavigate } from "react-router-dom";
 import UserTokenContext from "../contexts/UserTokenContext";
+import UserNameContext from "../contexts/UserNameContext";
 
 export default function Login() {
 	const loginURL = "http://localhost:5000/login";
 	const { setUserToken } = useContext(UserTokenContext);
+	const { setUserName } = useContext(UserNameContext);
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -23,7 +25,9 @@ export default function Login() {
 			.post(loginURL, formData)
 			.then((result) => {
 				console.log("Requisição OK!");
-				console.log(result);
+				console.log(result.data);
+				setUserToken(result.data.token);
+				setUserName(result.data.name);
 				navigate("/atividades");
 			})
 			.catch((error) => {
