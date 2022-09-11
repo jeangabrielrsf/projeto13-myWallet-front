@@ -8,3 +8,7 @@ body {
 	font-family: "Raleway", sans-serif;
 	background-color: #8c11be;
 }
+
+.hidden {
+	display: none;
+}

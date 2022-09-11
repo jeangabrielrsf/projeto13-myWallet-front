@@ -1,30 +1,98 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import EndFormButton from "../GlobalStyles/EndFormButton";
 import Form from "../GlobalStyles/Form";
 import Logo from "../GlobalStyles/Logo";
 
 export default function SignUp() {
-	const registerURL = "localhost:5000/sign-up";
+	const registerURL = "http://localhost:5000/sign-up";
 	const [textSignUpButton, setTextSignUpButton] = useState("Cadastrar");
+	const [formData, setFormData] = useState({
+		name: "",
+		email: "",
+		password: "",
+		confirmPassword: "",
+	});
+	const navigate = useNavigate();
+
+	function handleForm(e) {
+		e.preventDefault();
+		if (formData.password !== formData.confirmPassword) {
+			alert("As senhas digitadas não são correspondentes!");
+			setFormData({
+				...formData,
+				password: "",
+				confirmPassword: "",
+			});
+			return;
+		}
+		delete formData.confirmPassword;
+
+		axios
+			.post(registerURL, formData)
+			.then((result) => {
+				alert("Usuário cadastrado com sucesso!");
+				navigate("/");
+			})
+			.catch((error) => {
+				console.log(error.response);
+				alert(error.response.data.message);
+				setFormData({
+					...formData,
+					email: "",
+					password: "",
+					confirmPassword: "",
+				});
+			});
+	}
+
+	function handleDataForm(e) {
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value,
+		});
+	}
 
 	return (
 		<>
 			<Logo />
 
-			<Form>
-				<input type="text" placeholder="Nome" name="nome" required />
+			<Form onSubmit={handleForm}>
+				<input
+					type="text"
+					value={formData.name}
+					placeholder="Nome"
+					name="name"
+					onChange={handleDataForm}
+					required
+				/>
 
-				<input type="email" placeholder="E-mail" name="email" required />
-
-				<input type="password" placeholder="Senha" name="password" required />
+				<input
+					type="email"
+					value={formData.email}
+					placeholder="E-mail"
+					name="email"
+					onChange={handleDataForm}
+					required
+				/>
 
 				<input
 					type="password"
-					placeholder="Confirme a senha"
+					value={formData.password}
+					placeholder="Senha"
 					name="password"
+					onChange={handleDataForm}
+					required
+				/>
+
+				<input
+					type="password"
+					value={formData.confirmPassword}
+					placeholder="Confirme a senha"
+					name="confirmPassword"
+					onChange={handleDataForm}
 					required
 				/>
 

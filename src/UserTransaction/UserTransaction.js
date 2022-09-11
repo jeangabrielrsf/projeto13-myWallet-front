@@ -9,7 +9,7 @@ export default function UserTransaction({ transaction }) {
 			</TransactionDateDesc>
 
 			<TransactionValue type={transaction.type}>
-				{transaction.value}
+				{parseFloat(transaction.value).toFixed(2)}
 			</TransactionValue>
 		</Wrapper>
 	);

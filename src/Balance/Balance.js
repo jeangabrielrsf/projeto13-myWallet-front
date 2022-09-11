@@ -3,17 +3,17 @@ import styled from "styled-components";
 export default function Balance({ userTransactions }) {
 	let result = 0;
 	const balance = userTransactions.map((transaction) => {
-		console.log(parseFloat(transaction.value));
 		if (transaction.type === "income") {
 			result += parseFloat(transaction.value);
 		} else {
 			result -= parseFloat(transaction.value);
 		}
 	});
+
 	return (
-		<Wrapper result={result}>
+		<Wrapper result={result} size={userTransactions.length}>
 			<h3>Saldo</h3>
-			<p>{result}</p>
+			<p>{result.toFixed(2)}</p>
 		</Wrapper>
 	);
 }
@@ -21,7 +21,7 @@ export default function Balance({ userTransactions }) {
 const Wrapper = styled.div`
 	width: 100%;
 	padding: 15px;
-	display: flex;
+	display: ${(props) => (props.size === 0 ? "none" : "flex")};
 	justify-content: space-between;
 	font-size: 17px;
 	line-height: 20px;

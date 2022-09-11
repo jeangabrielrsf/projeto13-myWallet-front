@@ -23,7 +23,6 @@ export default function TransactionsScreen() {
 		axios
 			.get(transactionsURL, config)
 			.then((result) => {
-				console.log(result.data);
 				setUserTransactions(result.data);
 			})
 			.catch((error) => {
@@ -42,7 +41,7 @@ export default function TransactionsScreen() {
 
 			<Registers>
 				{userTransactions.length === 0 ? (
-					<p>Não há registros de entrada ou saída</p>
+					<h4>Não há registros de entrada ou saída</h4>
 				) : (
 					userTransactions.map((transaction, index) => {
 						return <UserTransaction key={index} transaction={transaction} />;
@@ -98,12 +97,14 @@ const Registers = styled.div`
 	width: 100%;
 	height: 446px;
 	margin: 10px auto;
-	color: #868686;
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 23.48px;
-	word-wrap: break-word;
 	border-radius: 5px;
+	h4 {
+		color: #868686;
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 23.48px;
+		word-wrap: break-word;
+	}
 `;
 
 const InOutButton = styled.div`

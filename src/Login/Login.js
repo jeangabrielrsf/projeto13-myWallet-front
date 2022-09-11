@@ -25,7 +25,6 @@ export default function Login() {
 			.post(loginURL, formData)
 			.then((result) => {
 				console.log("Requisição OK!");
-				console.log(result.data);
 				setUserToken(result.data.token);
 				setUserName(result.data.name);
 				navigate("/atividades");

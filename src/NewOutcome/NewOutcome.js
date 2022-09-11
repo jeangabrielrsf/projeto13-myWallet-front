@@ -27,7 +27,6 @@ export default function NewOutcome() {
 			.post(transactionsURL, outcomeData, config)
 			.then((result) => {
 				console.log("Requisição OK!");
-				console.log(result.data);
 				navigate("/atividades");
 			})
 			.catch((error) => {
@@ -41,7 +40,6 @@ export default function NewOutcome() {
 			...outcomeData,
 			[e.target.name]: e.target.value,
 		});
-		console.log(outcomeData);
 	}
 
 	return (
@@ -52,6 +50,7 @@ export default function NewOutcome() {
 				<input
 					type="number"
 					name="value"
+					step="0.01"
 					placeholder="Valor"
 					onChange={handleDataForm}
 					required
