@@ -1,18 +1,64 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import UserTokenContext from "../contexts/UserTokenContext";
 import Form from "../GlobalStyles/Form";
 
 export default function NewIncome() {
+	const { userToken } = useContext(UserTokenContext);
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userToken}`,
+		},
+	};
+
+	const transactionsURL = "http://localhost:5000/transactions";
+	const navigate = useNavigate();
+	const [incomeData, setIncomeData] = useState({
+		value: "",
+		description: "",
+		type: "income",
+	});
+	function handleForm(e) {
+		e.preventDefault();
+		axios
+			.post(transactionsURL, incomeData, config)
+			.then((result) => {
+				console.log("Requisição OK!");
+				console.log(result.data);
+				navigate("/atividades");
+			})
+			.catch((error) => {
+				console.log(error);
+				alert(error.response.message);
+			});
+	}
+
+	function handleDataForm(e) {
+		setIncomeData({
+			...incomeData,
+			[e.target.name]: e.target.value,
+		});
+		console.log(incomeData);
+	}
 	return (
 		<>
 			<Title>Nova entrada</Title>
 
-			<Form>
-				<input type="number" name="valor" placeholder="Valor" required />
+			<Form onSubmit={handleForm}>
+				<input
+					type="number"
+					name="value"
+					placeholder="Valor"
+					onChange={handleDataForm}
+					required
+				/>
 				<input
 					type="text"
 					name="description"
 					placeholder="Descrição"
+					onChange={handleDataForm}
 					required
 				/>
 

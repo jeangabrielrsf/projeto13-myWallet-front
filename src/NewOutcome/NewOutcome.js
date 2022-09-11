@@ -1,18 +1,66 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import UserTokenContext from "../contexts/UserTokenContext";
 import Form from "../GlobalStyles/Form";
 
 export default function NewOutcome() {
+	const { userToken } = useContext(UserTokenContext);
+	const config = {
+		headers: {
+			Authorization: `Bearer ${userToken}`,
+		},
+	};
+	const transactionsURL = "http://localhost:5000/transactions";
+	const navigate = useNavigate();
+
+	const [outcomeData, setOutcomeData] = useState({
+		value: "",
+		description: "",
+		type: "outcome",
+	});
+
+	function handleForm(e) {
+		e.preventDefault();
+		axios
+			.post(transactionsURL, outcomeData, config)
+			.then((result) => {
+				console.log("Requisição OK!");
+				console.log(result.data);
+				navigate("/atividades");
+			})
+			.catch((error) => {
+				console.log(error);
+				alert(error.response.message);
+			});
+	}
+
+	function handleDataForm(e) {
+		setOutcomeData({
+			...outcomeData,
+			[e.target.name]: e.target.value,
+		});
+		console.log(outcomeData);
+	}
+
 	return (
 		<>
 			<Title>Nova saída</Title>
 
-			<Form>
-				<input type="number" name="valor" placeholder="Valor" required />
+			<Form onSubmit={handleForm}>
+				<input
+					type="number"
+					name="value"
+					placeholder="Valor"
+					onChange={handleDataForm}
+					required
+				/>
 				<input
 					type="text"
 					name="description"
 					placeholder="Descrição"
+					onChange={handleDataForm}
 					required
 				/>
 

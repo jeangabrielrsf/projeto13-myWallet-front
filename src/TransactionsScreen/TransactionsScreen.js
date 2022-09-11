@@ -1,13 +1,16 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Balance from "../Balance/Balance";
 import UserNameContext from "../contexts/UserNameContext";
 import UserTokenContext from "../contexts/UserTokenContext";
+import UserTransaction from "../UserTransaction/UserTransaction";
 
 export default function TransactionsScreen() {
 	const { userToken } = useContext(UserTokenContext);
 	const transactionsURL = "http://localhost:5000/transactions";
+	const [userTransactions, setUserTransactions] = useState([]);
 
 	const config = {
 		headers: {
@@ -21,6 +24,7 @@ export default function TransactionsScreen() {
 			.get(transactionsURL, config)
 			.then((result) => {
 				console.log(result.data);
+				setUserTransactions(result.data);
 			})
 			.catch((error) => {
 				console.log(error.response);
@@ -36,7 +40,16 @@ export default function TransactionsScreen() {
 				</LogoutButton>
 			</Title>
 
-			<Registers>Não há registros de entrada ou saída</Registers>
+			<Registers>
+				{userTransactions.length === 0 ? (
+					<p>Não há registros de entrada ou saída</p>
+				) : (
+					userTransactions.map((transaction, index) => {
+						return <UserTransaction key={index} transaction={transaction} />;
+					})
+				)}
+				<Balance userTransactions={userTransactions} />
+			</Registers>
 
 			<Buttons>
 				<Link to="/nova-entrada">
@@ -79,7 +92,7 @@ const LogoutButton = styled.div`
 
 const Registers = styled.div`
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
 	align-items: center;
 	background-color: #ffffff;
 	width: 100%;
