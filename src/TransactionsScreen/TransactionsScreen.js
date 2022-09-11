@@ -29,6 +29,10 @@ export default function TransactionsScreen() {
 			})
 			.catch((error) => {
 				console.log(error.response);
+				if (error.response.status) {
+					alert(`${error.response.statusText}. Voltando para a tela inicial.`);
+					navigate("/");
+				}
 			});
 	}, []);
 
