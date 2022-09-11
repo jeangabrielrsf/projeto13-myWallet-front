@@ -30,7 +30,8 @@ export default function NewIncome() {
 			})
 			.catch((error) => {
 				console.log(error);
-				alert(error.response.message);
+				alert(`${error.response.statusText}. Voltando para a tela de login`);
+				navigate("/");
 			});
 	}
 
