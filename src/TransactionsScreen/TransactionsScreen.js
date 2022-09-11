@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Balance from "../Balance/Balance";
 import UserNameContext from "../contexts/UserNameContext";
@@ -10,7 +10,9 @@ import UserTransaction from "../UserTransaction/UserTransaction";
 export default function TransactionsScreen() {
 	const { userToken } = useContext(UserTokenContext);
 	const transactionsURL = "http://localhost:5000/transactions";
+	const signOutURL = "http://localhost:5000/sign-out";
 	const [userTransactions, setUserTransactions] = useState([]);
+	const navigate = useNavigate();
 
 	const config = {
 		headers: {
@@ -30,11 +32,26 @@ export default function TransactionsScreen() {
 			});
 	}, []);
 
+	function signOutUser() {
+		const answer = window.confirm("Tem certeza que deseja sair?");
+		if (answer) {
+			axios
+				.delete(signOutURL, config)
+				.then((result) => {
+					console.log(result.data);
+					navigate("/");
+				})
+				.catch((error) => {
+					console.log(error.response);
+				});
+		}
+	}
+
 	return (
 		<Container>
 			<Title userName={userName}>
 				{userName.length > 1 ? <h2>Olá, {userName}</h2> : <h2>Olá, pessoa</h2>}
-				<LogoutButton>
+				<LogoutButton onClick={() => signOutUser()}>
 					<ion-icon name="log-out-outline"></ion-icon>
 				</LogoutButton>
 			</Title>
@@ -105,6 +122,7 @@ const Registers = styled.div`
 
 const Transactions = styled.div`
 	width: 100%;
+	overflow-y: auto;
 	h4 {
 		color: #868686;
 		font-weight: 400;
