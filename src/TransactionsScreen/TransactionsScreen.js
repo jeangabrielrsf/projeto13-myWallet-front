@@ -40,13 +40,15 @@ export default function TransactionsScreen() {
 			</Title>
 
 			<Registers>
-				{userTransactions.length === 0 ? (
-					<h4>Não há registros de entrada ou saída</h4>
-				) : (
-					userTransactions.map((transaction, index) => {
-						return <UserTransaction key={index} transaction={transaction} />;
-					})
-				)}
+				<Transactions>
+					{userTransactions.length === 0 ? (
+						<h4>Não há registros de entrada ou saída</h4>
+					) : (
+						userTransactions.map((transaction, index) => {
+							return <UserTransaction key={index} transaction={transaction} />;
+						})
+					)}
+				</Transactions>
 				<Balance userTransactions={userTransactions} />
 			</Registers>
 
@@ -92,12 +94,17 @@ const LogoutButton = styled.div`
 const Registers = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 	align-items: center;
 	background-color: #ffffff;
 	width: 100%;
 	height: 446px;
 	margin: 10px auto;
 	border-radius: 5px;
+`;
+
+const Transactions = styled.div`
+	width: 100%;
 	h4 {
 		color: #868686;
 		font-weight: 400;
