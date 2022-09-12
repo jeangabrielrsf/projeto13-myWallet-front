@@ -2,9 +2,9 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import EndFormButton from "../GlobalStyles/EndFormButton";
-import Form from "../GlobalStyles/Form";
-import Logo from "../GlobalStyles/Logo";
+import EndFormButton from "../GlobalStyles/EndFormButton.js";
+import Form from "../GlobalStyles/Form.js";
+import Logo from "../GlobalStyles/Logo.js";
 
 export default function SignUp() {
 	const registerURL = "http://localhost:5000/sign-up";
@@ -33,7 +33,9 @@ export default function SignUp() {
 		axios
 			.post(registerURL, formData)
 			.then((result) => {
-				alert("Usuário cadastrado com sucesso!");
+				alert(
+					"Usuário cadastrado com sucesso! Clique Ok para ir para a página de login."
+				);
 				navigate("/");
 			})
 			.catch((error) => {

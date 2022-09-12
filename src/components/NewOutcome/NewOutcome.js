@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import UserTokenContext from "../contexts/UserTokenContext";
+import UserTokenContext from "../../contexts/UserTokenContext.js";
 import Form from "../GlobalStyles/Form";
 
 export default function NewOutcome() {

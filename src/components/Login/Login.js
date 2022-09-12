@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
-import Logo from "../GlobalStyles/Logo";
+import Logo from "../GlobalStyles/Logo.js";
 import axios from "axios";
 import styled from "styled-components";
-import Form from "../GlobalStyles/Form";
-import EndFormButton from "../GlobalStyles/EndFormButton";
+import Form from "../GlobalStyles/Form.js";
+import EndFormButton from "../GlobalStyles/EndFormButton.js";
 import { Link, useNavigate } from "react-router-dom";
-import UserTokenContext from "../contexts/UserTokenContext";
-import UserNameContext from "../contexts/UserNameContext";
+import UserTokenContext from "../../contexts/UserTokenContext.js";
+import UserNameContext from "../../contexts/UserNameContext.js";
 
 export default function Login() {
 	const loginURL = "http://localhost:5000/login";

@@ -1,12 +1,12 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { useState } from "react";
-import Login from "./Login/Login";
-import SignUp from "./SignUp/SignUp";
-import TransactionsScreen from "./TransactionsScreen/TransactionsScreen";
-import NewIncome from "./NewIncome/NewIncome";
-import NewOutcome from "./NewOutcome/NewOutcome";
-import UserTokenContext from "./contexts/UserTokenContext";
-import UserNameContext from "./contexts/UserNameContext";
+import SignUp from "./components/SignUp/SignUp.js";
+import TransactionsScreen from "./components/TransactionsScreen/TransactionsScreen.js";
+import NewIncome from "./components/NewIncome/NewIncome.js";
+import UserNameContext from "./contexts/UserNameContext.js";
+import Login from "./components/Login/Login.js";
+import NewOutcome from "./components/NewOutcome/NewOutcome.js";
+import UserTokenContext from "./contexts/UserTokenContext.js";
 
 export default function App() {
 	const [userToken, setUserToken] = useState("");

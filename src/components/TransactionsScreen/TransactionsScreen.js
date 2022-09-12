@@ -3,9 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Balance from "../Balance/Balance";
-import UserNameContext from "../contexts/UserNameContext";
-import UserTokenContext from "../contexts/UserTokenContext";
-import UserTransaction from "../UserTransaction/UserTransaction";
+import UserNameContext from "../../contexts/UserNameContext.js";
+import UserTokenContext from "../../contexts/UserTokenContext.js";
+import UserTransaction from "../UserTransaction/UserTransaction.js";
 
 export default function TransactionsScreen() {
 	const { userToken } = useContext(UserTokenContext);
@@ -42,7 +42,6 @@ export default function TransactionsScreen() {
 			axios
 				.delete(signOutURL, config)
 				.then((result) => {
-					console.log(result.data);
 					navigate("/");
 				})
 				.catch((error) => {
