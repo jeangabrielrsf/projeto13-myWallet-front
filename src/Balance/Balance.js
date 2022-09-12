@@ -13,7 +13,7 @@ export default function Balance({ userTransactions }) {
 	return (
 		<Wrapper result={result} size={userTransactions.length}>
 			<h3>Saldo</h3>
-			<p>{result.toFixed(2)}</p>
+			<p>{result.toFixed(2).toString().replace(".", ",")}</p>
 		</Wrapper>
 	);
 }
