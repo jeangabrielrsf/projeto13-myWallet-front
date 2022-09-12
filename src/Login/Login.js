@@ -24,13 +24,16 @@ export default function Login() {
 		axios
 			.post(loginURL, formData)
 			.then((result) => {
-				console.log("Requisição OK!");
 				setUserToken(result.data.token);
 				setUserName(result.data.name);
 				navigate("/atividades");
 			})
 			.catch((error) => {
 				alert(error.response.data.message);
+				setFormData({
+					email: "",
+					password: "",
+				});
 			});
 	}
 
@@ -49,6 +52,7 @@ export default function Login() {
 					type="email"
 					placeholder="E-mail"
 					name="email"
+					value={formData.email}
 					onChange={handleDataForm}
 					required
 				/>
@@ -57,6 +61,7 @@ export default function Login() {
 					type="password"
 					placeholder="Senha"
 					name="password"
+					value={formData.password}
 					onChange={handleDataForm}
 					required
 				/>
