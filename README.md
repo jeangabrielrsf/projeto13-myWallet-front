@@ -2,7 +2,7 @@
 
 Esse é o reposítório front-end do projeto MyWallet, um software básico para entradas e saídas financeiras.
 
-##Uso
+## Uso
 1) instalar as dependências rodando o comando abaixo na raiz do projeto
 ```bash
 npm install
