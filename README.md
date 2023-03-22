@@ -1,4 +1,4 @@
-# MyWallet
+# MyWallet (front-end)
 
 Esse é o reposítório front-end do projeto MyWallet, um software básico para entradas e saídas financeiras.
 
